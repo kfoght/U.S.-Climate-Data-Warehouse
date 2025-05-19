@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: Organizations
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: organization_name
+        data_type: string
+        constraints:
+          - type: primary_key
+        tests:
+          - not_null
+          - unique
+      - name: country
+        data_type: string

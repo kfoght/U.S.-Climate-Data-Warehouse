@@ -1,0 +1,272 @@
+version: 2
+
+models:
+  - name: Climate_Risk_Projection
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: county_code
+        data_type: string
+        constraints:
+          - type: primary_key
+        tests:
+          - unique
+          - not_null
+      - name: state
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+      - name: county
+        data_type: string
+      - name: temp_change
+        data_type: float
+      - name: precipitation_change
+        data_type: float
+      - name: extreme_precipitation
+        data_type: float
+      - name: extreme_cold
+        data_type: float
+      - name: extreme_heat
+        data_type: float
+      - name: dry_change
+        data_type: float
+      - name: impervious_surface
+        data_type: float
+      - name: housing_density
+        data_type: float
+      - name: population_estimate
+        data_type: float
+      - name: low_lying_houses
+        data_type: float
+      - name: low_lying_roads
+        data_type: float
+      - name: hazard
+        data_type: float
+      - name: exposure
+        data_type: float
+      - name: vulnerability
+        data_type: float
+      - name: risk_percentage
+        data_type: float
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+  - name: State_Average_Temperature
+    config:
+        contract:
+          enforced: true
+    constraints:
+        - type: primary_key
+          columns: [month, year, state]
+    columns:
+      - name: month
+        data_type: int64
+        tests:
+          - not_null
+      - name: year
+        data_type: int64
+        tests:
+          - not_null
+      - name: state
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+          - not_null
+      - name: average_temp
+        data_type: float
+      - name: monthly_mean_from_1901_to_2000
+        data_type: float
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+    tests:
+      - unique_combination_of_columns:
+          combination_of_columns:
+            - month
+            - year
+            - state
+  - name: State_Disaster
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [state, year]
+    columns:
+      - name: state
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+          - not_null
+      - name: year
+        data_type: int64
+        tests:
+          - not_null
+      - name: drought_count
+        data_type: int64
+      - name: drought_cost_min
+        data_type: int64
+      - name: drought_cost_max
+        data_type: int64
+      - name: flooding_count
+        data_type: int64
+      - name: flooding_cost_min
+        data_type: int64
+      - name: flooding_cost_max
+        data_type: int64
+      - name: freeze_count
+        data_type: int64
+      - name: freeze_cost_min
+        data_type: int64
+      - name: freeze_cost_max
+        data_type: int64
+      - name: severe_storm_count
+        data_type: int64
+      - name: severe_storm_cost_min
+        data_type: int64
+      - name: severe_storm_cost_max
+        data_type: int64
+      - name: tropical_cyclone_count
+        data_type: int64
+      - name: tropical_cyclone_cost_min
+        data_type: int64
+      - name: tropical_cyclone_cost_max
+        data_type: int64
+      - name: wildfire_count
+        data_type: int64
+      - name: wildfire_cost_min
+        data_type: int64
+      - name: wildfire_cost_max
+        data_type: int64
+      - name: winter_storm_count
+        data_type: int64
+      - name: winter_storm_cost_min
+        data_type: int64
+      - name: winter_storm_cost_max
+        data_type: int64
+      - name: all_disasters_count
+        data_type: int64
+      - name: all_disasters_cost_min
+        data_type: int64
+      - name: all_disasters_cost_max
+        data_type: int64
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+    tests:
+      - unique_combination_of_columns:
+          combination_of_columns:
+            - state
+            - year
+  - name: State_Electricity_Generation_Fuel_Share
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: state
+        data_type: string
+        constraints:
+          - type: primary_key
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+          - unique
+          - not_null
+      - name: nuclear
+        data_type: float
+      - name: coal
+        data_type: float
+      - name: natural_gas
+        data_type: float
+      - name: petroleum
+        data_type: float
+      - name: hydro
+        data_type: float
+      - name: geothermal
+        data_type: float
+      - name: solar_power
+        data_type: float
+      - name: wind
+        data_type: float
+      - name: biomass_and_others
+        data_type: float
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+  - name: State_GHG_Emission
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: emission_id
+        data_type: string
+        constraints:
+          - type: primary_key
+        tests:
+          - unique
+          - not_null
+      - name: geo_ref
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+      - name: year
+        data_type: int64
+      - name: ghg
+        data_type: string
+      - name: fuel
+        data_type: string
+      - name: sector
+        data_type: string
+      - name: subsector
+        data_type: string
+      - name: econ_sector
+        data_type: string
+      - name: econ_subsector
+        data_type: string
+      - name: category
+        data_type: string
+      - name: sub_category_1
+        data_type: string
+      - name: sub_category_2
+        data_type: string
+      - name: sub_category_3
+        data_type: string
+      - name: emission
+        data_type: float
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp

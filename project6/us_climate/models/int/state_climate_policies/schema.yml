@@ -1,0 +1,68 @@
+version: 2
+
+models:
+  - name: Policies
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: policy
+        data_type: string
+        constraints:
+          - type: primary_key
+        tests:
+          - unique
+          - not_null
+      - name: policy_area
+        data_type: string
+      - name: category
+        data_type: string
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+  - name: State_Climate_Policy
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [state, policy]
+    columns:
+      - name: state
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+        tests:
+          - not_null
+      - name: policy
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Policies')
+            to_columns: [policy]
+        tests:
+          - relationships:
+              to: ref('Policies')
+              field: policy
+        tests:
+          - not_null
+      - name: status
+        data_type: string
+      - name: year_enacted
+        data_type: integer
+      - name: _data_source
+        data_type: string
+      - name: _load_time
+        data_type: timestamp
+    tests:
+      - unique_combination_of_columns:
+          combination_of_columns:
+            - state
+            - policy

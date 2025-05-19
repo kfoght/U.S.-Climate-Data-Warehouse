@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: Facility_GHG_Emission
+    description: Emissions data for each facility and year
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [emission_id]
+      - type: foreign_key
+        columns: [year, facility_id, facility_name]
+        to: ref('Facility')
+        to_columns: [year, facility_id, facility_name]
+    columns:
+      - name: emission_id
+        description: Unique emission record ID
+        data_type: string
+        tests:
+          - not_null
+          - unique
+
+      - name: year
+        data_type: int64
+        tests:
+          - relationships:
+              to: ref('Facility')
+              field: year
+
+      - name: facility_id
+        data_type: int64
+        tests:
+          - relationships:
+              to: ref('Facility')
+              field: facility_id
+
+      - name: facility_name
+        data_type: string
+        tests:
+          - relationships:
+              to: ref('Facility')
+              field: facility_name
+
+      - name: carbon_dioxide_emissions
+        data_type: float64
+
+      - name: methane_emissions
+        data_type: float64
+
+      - name: nitrous_oxide_emissions
+        data_type: float64
+
+      - name: biogenic_co2_emissions
+        data_type: float64
+
+      - name: _data_source
+        data_type: string
+
+      - name: _load_time
+        data_type: timestamp

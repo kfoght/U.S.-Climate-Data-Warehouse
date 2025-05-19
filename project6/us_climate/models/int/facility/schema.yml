@@ -1,0 +1,87 @@
+version: 2
+
+models:
+  - name: Facility
+    description: Table of GHG facilities linked with standardized organizations and enriched metadata
+    config:
+      contract:
+        enforced: true
+
+    constraints:
+      - type: primary_key
+        columns: [year, facility_id, facility_name]
+
+    columns:
+      - name: year
+        description: Reporting year
+        data_type: int64
+        tests:
+          - not_null
+
+      - name: facility_id
+        description: Unique identifier for the facility
+        data_type: int64
+        tests:
+          - not_null
+
+      - name: facility_name
+        description: Name of the facility
+        data_type: string
+        tests:
+          - not_null
+
+      - name: organization
+        description: Standardized organization name
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Organizations')
+            to_columns: [organization_name]
+        tests:
+          - relationships:
+              to: ref('Organizations')
+              field: organization_name
+
+      - name: city
+        description: City where the facility is located
+        data_type: string
+
+      - name: state
+        description: State of the facility, linked to Geo_References
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+
+      - name: naics_code
+        description: NAICS industry classification code
+        data_type: int64
+
+      - name: industry_sector1
+        description: Primary industry sector
+        data_type: string
+
+      - name: industry_sector2
+        description: Secondary industry sector
+        data_type: string
+
+      - name: industry_sector3
+        description: Tertiary industry sector
+        data_type: string
+
+      - name: _data_source
+        description: Source system name
+        data_type: string
+
+      - name: _load_time
+        description: Timestamp of data load
+        data_type: timestamp
+
+    tests:
+      - unique_combination_of_columns:
+          combination_of_columns: [year, facility_id, facility_name]

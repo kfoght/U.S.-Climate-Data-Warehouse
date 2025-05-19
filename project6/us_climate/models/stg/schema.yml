@@ -1,0 +1,17 @@
+
+version: 2
+
+sources:
+  - name: us_climate_raw
+    database: kiaraerica
+    schema: us_climate_raw
+    tables:
+      - name: carbon_capture_facilities
+      - name: climate_risk_projections
+      - name: county_codes
+      - name: facility_ghg_emissions
+      - name: state_average_temperature
+      - name: state_climate_policies
+      - name: state_disasters
+      - name: state_electricity_generation_fuel_shares
+      - name: state_ghg_emissions

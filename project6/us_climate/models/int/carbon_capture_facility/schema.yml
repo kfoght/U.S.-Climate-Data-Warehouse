@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: Carbon_Capture_Facility
+    description: Table of carbon capture facilities cleaned and linked to standardized organizations
+    config:
+      contract:
+        enforced: true
+
+    columns:
+      - name: id
+        description: Unique identifier for each carbon capture facility
+        data_type: int64
+        constraints:
+          - type: primary_key
+        tests:
+          - not_null
+          - unique
+
+      - name: facility
+        description: Name of the facility
+        data_type: string
+
+      - name: organization
+        description: Standardized organization name
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Organizations')
+            to_columns: [organization_name]
+        tests:
+          - relationships:
+              to: ref('Organizations')
+              field: organization_name
+
+      - name: city
+        description: City where the facility is located
+        data_type: string
+
+      - name: state
+        description: State of the facility, foreign key to Geo_References
+        data_type: string
+        constraints:
+          - type: foreign_key
+            to: ref('Geo_References')
+            to_columns: [geo_id]
+        tests:
+          - relationships:
+              to: ref('Geo_References')
+              field: geo_id
+
+      - name: categories
+        description: Type or category of the carbon capture project
+        data_type: string
+
+      - name: status
+        description: Project status
+        data_type: string
+
+      - name: industry
+        description: Industry classification
+        data_type: string
+
+      - name: _data_source
+        description: Data source identifier
+        data_type: string
+
+      - name: _load_time
+        description: Load timestamp for ETL
+        data_type: timestamp
