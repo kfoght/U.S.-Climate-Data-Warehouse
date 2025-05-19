@@ -1,0 +1,25 @@
+
+    
+    
+
+with child as (
+    select facility_id as from_field
+    from `kiaraerica`.`dbt_us_climate_int`.`Carbon_Capture_Categories`
+    where facility_id is not null
+),
+
+parent as (
+    select id as to_field
+    from `kiaraerica`.`dbt_us_climate_int`.`Carbon_Capture_Facility`
+)
+
+select
+    from_field
+
+from child
+left join parent
+    on child.from_field = parent.to_field
+
+where parent.to_field is null
+
+
