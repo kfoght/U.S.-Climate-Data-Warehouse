@@ -4,7 +4,7 @@ Collaborated with another student on building a cloud-based data warehouse on Go
 ## Project 1
 Picked a domain, U.S. climate, and found datasets relating to that domain. Found 6 datasets that contained emission, temperature, policy, disaster and risk data. After collecting the datasets, created a Google Cloud Storage (GCS) bucket with individual folders where the data files were uploaded.
 
-- **state_GHG_emissions.docx**: Word doc containing information and descriptions regarding the state_GHG_emissions table.
+- **state_GHG_emissions.docx**: Contains information and descriptions regarding the state_GHG_emissions table.
 - **us-climate-data-dict-v1.xlsx**: Data dictionary representing the entities and their attributes. Includes the source, GCS location and file type.
 - **us-climate-erd-v1.pdf**: Entity Relationship Diagram (ERD) of the raw data. Visualization of how the different data would appear as tables and their relationships.
 
@@ -19,3 +19,8 @@ Two additional datasets were added to the project: one containing information on
 - **us-climate-erd-v2.pdf**: Udpated ERD with additional tables.
 
 ## Project 3
+A staging area was created in BigQuery to store the results of data transformations applied to resolve anomalies found in the raw dataset. These transformations included casting string fields to integers, replacing empty strings with proper null values, and splitting cells containing multiple embedded attributes into separate columns. In addition, irrelevant fields were removed, and select columns were renamed for clarity and consistency. The ERD was updated to reflect these changes, with modifications shown in bold
+
+- **3-us-climate-stg-cleaned.ipynb**: Renderable version of the staging notebook for viewing directly on GitHub.
+- **3-us-climate-stg.ipynb**: Performs data cleaning and transformation, writing the results to new BigQuery tables in the staging dataset.
+- **us-climate-erd-stg.pdf**: Updated ERD showing changes made in the staging layer.
