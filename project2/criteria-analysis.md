@@ -21,10 +21,10 @@ All data in the warehouse is consistent and functional dependencies hold within 
 The fields `drought_cost_range`, `flooding_cost_range`, etc., in the `state_disasters` table contains the min and max as a range of possible values. The field `facility_ghg_emissions.industry_sector` contains various industry types in the same field. They can be separated as this is a means to join with other tables in the future.
 
 ### Criteria 8
-`facility_ghg_emissions` sometimes stores a list of industry types and sectors in the same cell. `carbon_capture_facilities` sometimes stores a list of categories in the same cell.
+`carbon_capture_facilities` stores a list of categories in the same cell.
 
 ### Criteria 9
-Geographic location information is repeated across tables in different ways. `climate_risk_projections.geo_id`, which uses county codes, versus `state_disasters.state` and `state_average_temperature.state`. Industry categories are also represented in different ways, `carbon_capture_facilities.industry` versus `state_ghg_emissions.sector`.
+Geographic location information is repeated across tables in different ways. `climate_risk_projections.geo_id`, which uses county codes, versus `state_disasters.state` and `state_average_temperature.state`. `carbon_capture_facilities` table has an organization column while `facility_ghg_emissions` does not, however they both have a facility column.
 
 ### Criteria 10
-The `state_ghg_emissions` table has information about emissions categorized in economic sectors and UNFCC reporting sectors. The fields `econ_sector`, `econ_subsector`, `sector`, and `subsector` in the same table are redundant as they often have the same values.
+In the `state_climate_policies` table, `policy`, `policy_area`, and `category` are grouped uniquely. The unique combinations can be store in a separate table to remove redundancy.
