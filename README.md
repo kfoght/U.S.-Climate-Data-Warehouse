@@ -24,3 +24,6 @@ A staging area was created in BigQuery to store the results of data transformati
 - **3-us-climate-stg-cleaned.ipynb**: Renderable version of the staging notebook for viewing directly on GitHub.
 - **3-us-climate-stg.ipynb**: Performs data cleaning and transformation, writing the results to new BigQuery tables in the staging dataset.
 - **us-climate-erd-stg.pdf**: Updated ERD showing changes made in the staging layer.
+
+## Project 4
+An intermediate area was created in BigQuery to store the results of data transformations applied to resolve the required remaining anomalies. These transformations included converting a list of embedded values in a single cell into an auxiliary table, creating a universal identifier, and decomposing a multi-entity table into separate tables.
