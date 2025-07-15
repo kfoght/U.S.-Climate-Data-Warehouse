@@ -31,3 +31,9 @@ An intermediate area was created in BigQuery to store the results of data transf
 - **4-us-climate-int-cleaned.ipynb**: Renerable version of the intermediate notebook for viewing on GitHub.
 - **4-us-climate-int.ipynb**: Performs additional data cleaning and transformations, writing the results to new BigQuery tables in the intermediate dataset.
 - **us-climate-erd-int.pdf**: Updated ERD showing changes made in the intermediate layer.
+
+## Project 5
+A mart layer was created in BigQuery to serve as the user-facing layer of the warehouse. This layer was built on top of the intermediate layer and consisted of 10 domain-specific marts that answered 5 potential business questions. Each mart was constructed by joining and aggregating data from multiple intermediate tables, with at least two-thirds of those tables and all data sources represented.
+
+- **5-us-climate-mrt-cleaned.ipynb**: Renderable version of the mart notebook for viewing on GitHub.
+- **5-us-climate-mrt.ipynb**: Implements 10 marts using queries on intermediate tables to answer 5 business questions.
