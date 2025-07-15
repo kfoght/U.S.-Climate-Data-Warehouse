@@ -37,3 +37,9 @@ A mart layer was created in BigQuery to serve as the user-facing layer of the wa
 
 - **5-us-climate-mrt-cleaned.ipynb**: Renderable version of the mart notebook for viewing on GitHub.
 - **5-us-climate-mrt.ipynb**: Implements 10 marts using queries on intermediate tables to answer 5 business questions.
+
+## Project 6
+An end-to-end data pipeline was implemented in **dbt**, converting all previously developed SQL and Python transformations into testable dbt models. Models were organized into the three previous layers--stg, int, and mrt--with each layer built upon the previous one. SQL transformations were rewritten as dbt SQL models, and Python blocks involving complex logic or LLM interactions were converted into PySpark-based dbt Python models. Each model was validated through a set of automated data integrity tests, including `not null`, `unique`, and `relationship` constraints defined in `schema.yml` files. Any issues identified during testing were resolved iteratively by updating models and rerunning tests. Additional design features included post-hooks to handle temporary table drops and the use of macros to prevent dataset naming conflicts. The project concluded with the generation of lineage graphs to visualize the dependencies between models across all three layers.
+
+- **lineage**: Folder containing screenshots of the dbt model lineage graphs across all layers.
+- **us_climate**: Folder containing the dbt project environment and models.
