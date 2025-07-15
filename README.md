@@ -26,4 +26,8 @@ A staging area was created in BigQuery to store the results of data transformati
 - **us-climate-erd-stg.pdf**: Updated ERD showing changes made in the staging layer.
 
 ## Project 4
-An intermediate area was created in BigQuery to store the results of data transformations applied to resolve the required remaining anomalies. These transformations included converting a list of embedded values in a single cell into an auxiliary table, creating a universal identifier, and decomposing a multi-entity table into separate tables.
+An intermediate area was created in BigQuery to store the results of data transformations applied to resolve the required remaining anomalies. These transformations included converting a list of embedded values in a single cell into an auxiliary table, creating a universal identifier, and decomposing a multi-entity table into separate tables. Additionally, multiple entities were enriched with new attributes using Gemini, and referential integrity was ensured. Ended with 13 tables in the intermediate layer.
+
+-- **4-us-climate-int-cleaned.ipynb**: Renerable version of the intermediate notebook for viewing on GitHub.
+-- **4-us-climate-int.ipynb**: Performs additional data cleaning and transformations, writing the results to new BigQuery tables in the intermediate dataset.
+-- **us-climate-erd-int.pdf**: Updated ERD showing changes made in the intermediate layer.
